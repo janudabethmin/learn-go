@@ -6,7 +6,10 @@ import (
 )
 
 func main() {
+
 	fmt.Println("Hello, World!")
+
+	// Marshalling the user struct to JSON
 
 	user1 := User{
 		Name:     "Januda",
@@ -15,7 +18,6 @@ func main() {
 	}
 	fmt.Println("User1 :", user1)
 
-	// Marshalling the user struct to JSON
 	userConvertedTOByteString, error1 := json.Marshal(user1)
 
 	if error1 != nil {
@@ -27,6 +29,7 @@ func main() {
 	fmt.Println("User1 in JSON format:", userConvertedTOJson)
 
 	// Unmarshalling the JSON to a struct
+
 	jsonUser := `{"name":"Bethmin","age":24,"password":"mysecurepassword"}`
 
 	user2 := User{}
