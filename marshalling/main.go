@@ -26,6 +26,7 @@ func main() {
 	}
 
 	userConvertedTOJson := string(userConvertedTOByteString)
+
 	fmt.Println("User1 in JSON format:", userConvertedTOJson)
 
 	// Unmarshalling the JSON to a struct
@@ -46,10 +47,37 @@ func main() {
 	}
 
 	fmt.Println("User2 :", user2)
+
+	// Omitting empty fields
+
+	user3 := UserWithOmitEmpty{
+		Name:     "",
+		Age:      24,
+		Password: "mysecurepassword",
+	}
+
+	fmt.Println("User3 :", user3)
+
+	// Removing a field from the JSON output
+
 }
 
 type User struct {
+	Name     string `json:"name"`
+	Age      int    `json:"age"`
+	Password string `json:"password"`
+}
+
+type UserWithOmitEmpty struct {
+	// omitempty omits the field from the JSON output if it is empty
 	Name     string `json:"name,omitempty"`
 	Age      int    `json:"age"`
 	Password string `json:"password"`
+}
+
+type UserWhenPasswordIsNotSharedViaJson struct {
+	// "-" omits the field from the JSON output no matter what
+	Name     string `json:"name"`
+	Age      int    `json:"age"`
+	Password string `json:"-"`
 }
