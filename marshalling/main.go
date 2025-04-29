@@ -88,6 +88,17 @@ func main() {
 	fmt.Println("User4 in JSON format:", user4ConvertedTOJson)
 	fmt.Println("User4 :", user4)
 
+	// Accessing Seperate Values of a Struct
+
+	user5 := User{
+		Name:     "Januda",
+		Age:      24,
+		Password: "mysecurepassword",
+	}
+
+	fmt.Println("User5 name :", user5.Name)
+	fmt.Println("User5 age :", user5.Age)
+	fmt.Println("User5 password :", user5.Password)
 }
 
 type User struct {
