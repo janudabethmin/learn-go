@@ -34,7 +34,11 @@ func main() {
 
 	user2 := User{}
 
-	error2 := json.Unmarshal([]byte(jsonUser), &user2)
+	user2Pointer := &user2
+
+	jsonUserConvertedTOByteString := []byte(jsonUser)
+
+	error2 := json.Unmarshal(jsonUserConvertedTOByteString, user2Pointer)
 
 	if error2 != nil {
 		fmt.Println("Error converting JSON to user2:", error2)
