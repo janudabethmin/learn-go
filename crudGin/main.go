@@ -17,6 +17,7 @@ func main() {
 	router.POST("/books", createBook)
 	router.GET("/books/:id", getBookById)
 	router.PATCH("/books/checkout", checkoutBook)
+	router.PATCH("/books/return", returnBook)
 
 	// Start the server on localhost:8080
 	router.Run("localhost:8080")
@@ -107,6 +108,30 @@ func checkoutBook(c *gin.Context) {
 
 	// Decrease the quantity of the book by 1
 	book.Quantity--
+
+	// Return the updated book with a 200 OK status
+	c.IndentedJSON(http.StatusOK, book)
+}
+
+func returnBook(c *gin.Context) {
+	id, ok := c.GetQuery("id")
+
+	if !ok {
+		// If the ID is not provided, return a 400 Bad Request
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"message": "ID is required"})
+		return
+	}
+
+	// Call the helper function to get the book by ID
+	book, err := bookById(id)
+	// If the book is not found, return a 404 Not Found
+	if err != nil {
+		c.IndentedJSON(http.StatusNotFound, gin.H{"message": "Book not found"})
+		return
+	}
+
+	// Increase the quantity of the book by 1
+	book.Quantity++
 
 	// Return the updated book with a 200 OK status
 	c.IndentedJSON(http.StatusOK, book)
