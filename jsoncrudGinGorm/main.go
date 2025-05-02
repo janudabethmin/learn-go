@@ -1,19 +1,14 @@
 package main
 
 import (
-	"log"
-
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
+	"github.com/janudabethmin/learn-go/jsoncrudGinGorm/initializers"
 )
 
 // init() runs before main() and is used to initialize the application
 func init(){
-	// Loading environment variables from .env file
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	// Running the LoadEnvVariables function from the initializers package
+	initializers.LoadEnvVariables()
 }
 
 func main() {
