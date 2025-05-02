@@ -1,11 +1,27 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"log"
+
+	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
+)
+
+// init() runs before main() and is used to initialize the application
+func init(){
+	// Loading environment variables from .env file
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+}
 
 func main() {
 	router := gin.Default()
 	router.GET("/hello", hello)
-	router.Run("localhost:8080")
+	// Router default port is 8080. 
+	// If the PORT ENV variable is set, it will be used instead
+	router.Run()
 }
 
 func hello(c *gin.Context) {
