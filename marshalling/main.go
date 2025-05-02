@@ -88,7 +88,7 @@ func main() {
 	fmt.Println("User4 in JSON format:", user4ConvertedTOJson)
 	fmt.Println("User4 :", user4)
 
-	// Accessing Seperate Values of a Struct
+	// Accessing Separate Values of a Struct
 
 	user5 := User{
 		Name:     "Januda",
@@ -115,7 +115,7 @@ type UserWithOmitEmpty struct {
 }
 
 type UserWhenPasswordIsNotSharedViaJson struct {
-	// "-" omits the field from the JSON output no matter what but keeps it in the struct
+	// "-" omits the field from the JSON output, no matter what, but keeps it in the struct
 	Name     string `json:"name"`
 	Age      int    `json:"age"`
 	Password string `json:"-"`

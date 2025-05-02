@@ -20,10 +20,13 @@ func main() {
 	router.PATCH("/books/return", returnBook)
 
 	// Start the server on localhost:8080
-	router.Run("localhost:8080")
+	err := router.Run("localhost:8080")
+	if err != nil {
+		return
+	}
 }
 
-// *gin.Context is a pointer to the context of the request that contains all the information about the request allowing us to create the response
+// *gin.Context is a pointer to the context of the request that contains all the information about the request, allowing us to create the response
 func getAllBooks(c *gin.Context) {
 
 	// Return the list of books as nicely indented JSON
@@ -52,7 +55,7 @@ func createBook(c *gin.Context) {
 
 func getBookById(c *gin.Context) {
 
-	// Get the book ID from the URL via PAth parameters
+	// Get the book ID from the URL via Path parameters
 	id := c.Param("id")
 
 	// Call the helper function to get the book by ID
