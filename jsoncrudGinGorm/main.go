@@ -3,12 +3,15 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/janudabethmin/learn-go/jsoncrudGinGorm/initializers"
+	"log"
 )
 
 // init() runs before main() and is used to initialize the application
 func init() {
-	// Running the LoadEnvVariables function from the initializers package
+	// Running the LoadEnvVariables and ConnectDatabase functions from the initializers package
+	// Need to start these functions with a capital letter to make it public (can be used in other packages/files)
 	initializers.LoadEnvVariables()
+	initializers.ConnectDatabase()
 }
 
 func main() {
@@ -18,6 +21,7 @@ func main() {
 	// If the PORT ENV variable is set, it will be used instead
 	err := router.Run()
 	if err != nil {
+		log.Fatal("Router is not working as expected.")
 		return
 	}
 }

@@ -1,3 +1,6 @@
 package initializers
 
-func ConnectDatabase() {}
+// ConnectDatabase Connecting to the postgres database
+func ConnectDatabase() {
+
+}
