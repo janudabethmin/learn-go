@@ -111,3 +111,29 @@ func UpdatePost(c *gin.Context) {
 	// Return the updated post as a JSON response
 	c.JSON(200, post)
 }
+
+func DeletePost(c *gin.Context) {
+	// Get the post ID from the query parameters
+	id, ok := c.GetQuery("id")
+	if !ok {
+		c.JSON(400, gin.H{"error": "Post ID is required"})
+		return
+	}
+
+	// Find the post by ID and delete it
+	var post models.Post
+	result := initializers.DB.First(&post, id)
+	if result.Error != nil {
+		c.JSON(404, gin.H{"error": "Post not found"})
+		return
+	}
+
+	result = initializers.DB.Delete(&post)
+	if result.Error != nil {
+		c.JSON(500, gin.H{"error": "Failed to delete post"})
+		return
+	}
+
+	// Return a success message as a JSON response
+	c.JSON(200, gin.H{"message": "Post deleted successfully"})
+}

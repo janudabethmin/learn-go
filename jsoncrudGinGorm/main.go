@@ -16,11 +16,14 @@ func init() {
 }
 
 func main() {
+	// Create a new Gin router
 	router := gin.Default()
+	// Define the routes for the application
 	router.POST("/post", controllers.CreatePost)
 	router.GET("/posts", controllers.GetAllPosts)
 	router.GET("/post", controllers.GetPostById)
 	router.PUT("/post", controllers.UpdatePost)
+	router.DELETE("/post", controllers.DeletePost)
 	// Router default port is 8080.
 	// If the PORT ENV variable is set, it will be used instead
 	err := router.Run()
@@ -28,8 +31,4 @@ func main() {
 		log.Fatal("Router is not working as expected.")
 		return
 	}
-}
-
-func hello(c *gin.Context) {
-	c.IndentedJSON(200, gin.H{"message": "Hello World"})
 }
