@@ -49,3 +49,24 @@ func GetAllPosts(c *gin.Context) {
 	// Return the posts as a JSON response
 	c.JSON(200, posts)
 }
+
+func GetPostById(c *gin.Context) {
+
+	// Get the post ID from the query parameters
+	id, ok := c.GetQuery("id")
+	if !ok {
+		c.JSON(400, gin.H{"error": "Post ID is required"})
+		return
+	}
+
+	// Find the post by ID
+	var post models.Post
+	result := initializers.DB.First(&post, id)
+	if result.Error != nil {
+		c.JSON(404, gin.H{"error": "Post not found"})
+		return
+	}
+
+	// Return the post as a JSON response
+	c.JSON(200, post)
+}

@@ -17,8 +17,9 @@ func init() {
 
 func main() {
 	router := gin.Default()
-	router.POST("/posts", controllers.CreatePost)
+	router.POST("/post", controllers.CreatePost)
 	router.GET("/posts", controllers.GetAllPosts)
+	router.GET("/post", controllers.GetPostById)
 	// Router default port is 8080.
 	// If the PORT ENV variable is set, it will be used instead
 	err := router.Run()
