@@ -70,3 +70,44 @@ func GetPostById(c *gin.Context) {
 	// Return the post as a JSON response
 	c.JSON(200, post)
 }
+
+func UpdatePost(c *gin.Context) {
+	// Get the post ID from the query parameters
+	id, ok := c.GetQuery("id")
+	if !ok {
+		c.JSON(400, gin.H{"error": "Post ID is required"})
+		return
+	}
+
+	// Get the updated data from the request body
+	var body struct {
+		Message string `json:"message"`
+		Title   string `json:"title"`
+	}
+	err := c.BindJSON(&body)
+	if err != nil {
+		c.JSON(400, gin.H{"error": "Invalid request"})
+		return
+	}
+
+	// Find the post by ID and update it
+	var post models.Post
+	result := initializers.DB.First(&post, id)
+	if result.Error != nil {
+		c.JSON(404, gin.H{"error": "Post not found"})
+		return
+	}
+
+	post.Title = body.Title
+	post.Message = body.Message
+
+	// Save the updated post to the database
+	result = initializers.DB.Save(&post)
+	if result.Error != nil {
+		c.JSON(500, gin.H{"error": "Failed to update post"})
+		return
+	}
+
+	// Return the updated post as a JSON response
+	c.JSON(200, post)
+}

@@ -20,6 +20,7 @@ func main() {
 	router.POST("/post", controllers.CreatePost)
 	router.GET("/posts", controllers.GetAllPosts)
 	router.GET("/post", controllers.GetPostById)
+	router.PUT("/post", controllers.UpdatePost)
 	// Router default port is 8080.
 	// If the PORT ENV variable is set, it will be used instead
 	err := router.Run()
